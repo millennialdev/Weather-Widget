@@ -2,28 +2,30 @@
 	<div id="app" v-bind:class="backgroundPicker(weather)">
 		<main>
 			<div class="container">
-				<div class="search-box">
-					<input
-						type="text"
-						class="search-bar"
-						placeholder="Enter a City, State, or Country Location"
-						v-model="query"
-						@keypress="fetchWeather"
-					/>
-				</div>
-
-				<div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
-					<div class="location-box">
-						<div class="location">
-							{{ weather.name }}, {{ weather.sys.country }}
+				<div class="content-container">
+					<div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
+						<div class="location-box">
+							<div class="location">
+								{{ weather.name }}, {{ weather.sys.country }}
+							</div>
+							<div class="date">
+								{{ dateBuilder() }}
+							</div>
 						</div>
-						<div class="date">
-							{{ dateBuilder() }}
+						<div class="weather-box">
+							<div class="temp">{{ Math.round(weather.main.temp) }}&#176;F</div>
+							<div class="weather">{{ weather.weather[0].main }}</div>
 						</div>
 					</div>
-					<div class="weather-box">
-						<div class="temp">{{ Math.round(weather.main.temp) }}&#176;F</div>
-						<div class="weather">{{ weather.weather[0].main }}</div>
+					<div class="search-box">
+						<input
+							type="text"
+							class="search-bar"
+							placeholder="Enter a City, State, or Country..."
+							v-model="query"
+							@keypress="fetchWeather"
+							style="padding-left: 30px;"
+						/>
 					</div>
 				</div>
 			</div>
@@ -108,8 +110,6 @@ export default {
 							return 'rain';
 						case 'Snow':
 							return 'snow';
-						case 'Thunder':
-							return 'thunder';
 						default:
 							return '';
 					}
@@ -135,9 +135,6 @@ body {
 	background-position: bottom;
 	transition: 0.4s;
 }
-#app.cold {
-	background-image: url('./assets/cold-bg.jpg');
-}
 #app.clear {
 	background-image: url('./assets/clear.jpg');
 }
@@ -153,8 +150,8 @@ body {
 #app.snow {
 	background-image: url('./assets/snow.jpg');
 }
-#app.thunder {
-	background-image: url('./assets/thunder.jpg');
+#app.cold {
+	background-image: url('./assets/cold-bg.jpg');
 }
 #app.warm {
 	background-image: url('./assets/warm-bg.jpg');
@@ -187,13 +184,13 @@ main {
 	outline: none;
 	background: none;
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(255, 255, 255, 0.45);
 	border-radius: 0px 16px 0px 16px;
 	transition: 0.4s;
 }
 .search-box .search-bar:focus {
 	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
-	background-color: rgba(255, 255, 255, 0.75);
+	background-color: rgba(255, 255, 255, 0.65);
 	border-radius: 16px 0px 16px 0px;
 }
 .location-box .location {
@@ -232,16 +229,19 @@ main {
 	font-style: italic;
 	text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
+
 .container {
-	position: absolute;
-	inset: 8%;
 	background: rgba(100, 100, 100, 0.25);
-	backdrop-filter: blur(2.5px);
+	backdrop-filter: blur(3px);
 	max-width: 500px;
 	max-height: 600px;
-	margin: 0 auto;
+	margin: 15vh auto;
 	padding: 0 20px;
 	border-radius: 1.5rem;
+}
+
+.content-container {
+	padding: 2rem 1rem 0.5rem;
 }
 
 /* @media only screen and (max-height: 674px) {
