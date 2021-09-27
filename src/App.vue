@@ -17,6 +17,11 @@
 							<div class="weather">{{ weather.weather[0].main }}</div>
 						</div>
 					</div>
+					<div class="weather-wrap" v-else>
+						<div class="location-box">
+							<div class="location">Firewatch Weather Provider</div>
+						</div>
+					</div>
 					<div class="search-box">
 						<input
 							type="text"
@@ -24,7 +29,6 @@
 							placeholder="Enter a City, State, or Country..."
 							v-model="query"
 							@keypress="fetchWeather"
-							style="padding-left: 30px;"
 						/>
 					</div>
 				</div>
@@ -94,7 +98,7 @@ export default {
 		},
 		backgroundPicker(weather) {
 			if (typeof weather.main != 'undefined') {
-				if (weather.main.temp > 90) {
+				if (weather.main.temp > 88) {
 					return 'warm';
 				} else if (weather.main.temp < 32) {
 					return 'cold';
@@ -102,8 +106,6 @@ export default {
 					switch (weather.weather[0].main) {
 						case 'Clear':
 							return 'clear';
-						case 'Clouds':
-							return 'clouds';
 						case 'Drizzle':
 							return 'drizzle';
 						case 'Rain':
@@ -132,14 +134,11 @@ body {
 #app {
 	background-image: url('./assets/regular.jpg');
 	background-size: cover;
-	background-position: bottom;
-	transition: 0.4s;
+	background-position: center center;
+	transition: 350ms;
 }
 #app.clear {
 	background-image: url('./assets/clear.jpg');
-}
-#app.clouds {
-	background-image: url('./assets/clouds.jpg');
 }
 #app.drizzle {
 	background-image: url('./assets/drizzle.jpg');
@@ -161,8 +160,8 @@ main {
 	padding: 25px;
 	background-image: linear-gradient(
 		to bottom,
-		rgba(0, 0, 0, 0.25),
-		rgba(0, 0, 0, 0.75)
+		rgba(0, 0, 0, 0.05),
+		rgba(0, 0, 0, 0.35)
 	);
 }
 .search-box {
@@ -175,6 +174,7 @@ main {
 	display: block;
 	width: 100%;
 	padding: 15px;
+	padding-left: 30px;
 	max-width: 1200px;
 	margin: 0 auto;
 	color: #313131;
@@ -184,13 +184,13 @@ main {
 	outline: none;
 	background: none;
 	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-	background-color: rgba(255, 255, 255, 0.45);
+	background-color: rgba(255, 255, 255, 0.65);
 	border-radius: 0px 16px 0px 16px;
 	transition: 0.4s;
 }
 .search-box .search-bar:focus {
 	box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
-	background-color: rgba(255, 255, 255, 0.65);
+	background-color: rgba(255, 255, 255, 0.75);
 	border-radius: 16px 0px 16px 0px;
 }
 .location-box .location {
@@ -217,7 +217,7 @@ main {
 	font-size: 3em;
 	font-weight: 900;
 	text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-	background-color: rgba(255, 255, 255, 0.25);
+	background-color: rgba(255, 255, 255, 0.4);
 	border-radius: 16px;
 	margin: 30px 0px;
 	box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
@@ -231,7 +231,7 @@ main {
 }
 
 .container {
-	background: rgba(100, 100, 100, 0.25);
+	background: rgba(75, 75, 75, 0.55);
 	backdrop-filter: blur(3px);
 	max-width: 500px;
 	max-height: 600px;
@@ -244,32 +244,28 @@ main {
 	padding: 2rem 1rem 0.5rem;
 }
 
-/* @media only screen and (max-height: 674px) {
-	.container {
-		inset: 0 8%;
+@media screen and (max-width: 450px) {
+	.search-box .search-bar {
+		font-size: 16px;
 	}
 }
 
-@media only screen and (max-width: 356px) {
-	.container {
-		inset: 8% 2%;
-	}
-}
-
-@media only screen and (max-width: 300px) {
-	.container {
-		transform: scale(0.75);
-		position: static;
-		inset: 0;
+@media screen and (max-width: 392px) {
+	.search-box .search-bar {
+		font-size: 14px;
+		padding-left: 15px;
 	}
 
-	main {
+	.content-container {
 		padding-left: 0;
 		padding-right: 0;
 	}
+}
 
-	.weather-box .temp {
-		font-size: 64px;
+@media screen and (max-width: 316px) {
+	main {
+		padding-left: 7.5px;
+		padding-right: 7.5px;
 	}
-} */
+}
 </style>
