@@ -2,7 +2,7 @@
 
 ## Created an weather app/widget with design using wallpaper art from the video-game `Firewatch`.
 
-Click <a href='#' target='_blank'>here</a> to view the project live.
+Click <a href='https://firewatch-weather-widget.netlify.app/' target='_blank'>here</a> to view the project live.
 
 <img src='./src/assets/capture.jpg' />
 
